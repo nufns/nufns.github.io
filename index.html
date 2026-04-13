@@ -1,10 +1,74 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>My First Site</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Your Name</title>
+
+<style>
+body {
+    margin: 0;
+    background: #0d0d0d;
+    color: white;
+    font-family: Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+/* Card */
+.container {
+    text-align: center;
+    background: #111;
+    padding: 40px;
+    border-radius: 15px;
+    box-shadow: 0 0 30px rgba(255,255,255,0.05);
+    width: 300px;
+}
+
+/* Username */
+h1 {
+    margin-bottom: 10px;
+}
+
+/* Bio */
+p {
+    color: #aaa;
+    font-size: 14px;
+}
+
+/* Links */
+.links a {
+    display: block;
+    margin: 10px 0;
+    padding: 10px;
+    border-radius: 8px;
+    background: #1a1a1a;
+    text-decoration: none;
+    color: white;
+    transition: 0.2s;
+}
+
+.links a:hover {
+    background: #333;
+    transform: scale(1.05);
+}
+</style>
 </head>
+
 <body>
-    <h1>Yo, this is my website</h1>
-    <p>I made this using GitHub Pages.</p>
+
+<div class="container">
+    <h1>@yourname</h1>
+    <p>your short bio here</p>
+
+    <div class="links">
+        <a href="#">Discord</a>
+        <a href="#">YouTube</a>
+        <a href="#">GitHub</a>
+    </div>
+</div>
+
 </body>
 </html>
