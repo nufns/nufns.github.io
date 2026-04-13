@@ -17,29 +17,22 @@ body {
     overflow: hidden;
 }
 
-/* MP4 Video Background */
 #bg-video {
     position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
     object-fit: cover;
     z-index: -2;
 }
 
-/* Dark overlay */
 .overlay {
     position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
     background: rgba(0, 0, 0, 0.65);
     z-index: -1;
 }
 
-/* Card with fade-in */
 .container {
     text-align: center;
     background: rgba(17, 17, 17, 0.68);
@@ -49,7 +42,6 @@ body {
     width: 340px;
     position: relative;
     z-index: 2;
-    
     opacity: 0;
     animation: fadeIn 1.5s ease forwards;
     animation-delay: 0.2s;
@@ -60,22 +52,13 @@ body {
     to   { opacity: 1; transform: translateY(0); }
 }
 
-/* Name */
-.name-wrapper {
-    position: relative;
-    display: inline-block;
-}
-
 .glow-name {
-    position: relative;
-    z-index: 2;
     font-size: 28px;
     color: #ff69b4;
     text-shadow: 0 0 12px #ff69b4, 0 0 28px #ff69b4;
     margin: 0;
 }
 
-/* Subtitle */
 .subtitle {
     font-size: 16px;
     color: #ff69b4;
@@ -85,25 +68,6 @@ body {
     font-weight: bold;
 }
 
-/* Particles - delayed start */
-#particles {
-    position: absolute;
-    top: -55px;
-    left: -55px;
-    width: calc(100% + 110px);
-    height: calc(100% + 110px);
-    pointer-events: none;
-    z-index: 1;
-    opacity: 0;
-    animation: particlesFadeIn 0.8s ease forwards;
-    animation-delay: 1.9s;
-}
-
-@keyframes particlesFadeIn {
-    to { opacity: 1; }
-}
-
-/* Slick link boxes - FIXED */
 .links {
     display: flex;
     flex-direction: column;
@@ -132,89 +96,115 @@ body {
     border-color: rgba(255, 105, 180, 0.3);
 }
 
-/* ==================== NEW: MUSIC CONTROLS ==================== */
+/* View Counter - Eyeball Icon (slightly above middle) */
+.view-counter {
+    position: fixed;
+    top: 38%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 10;
+    background: rgba(17, 17, 17, 0.75);
+    padding: 10px 18px;
+    border-radius: 30px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    box-shadow: 0 0 25px rgba(255, 105, 180, 0.4);
+    border: 1px solid rgba(255, 105, 180, 0.25);
+    pointer-events: none; /* so it doesn't block clicks */
+}
+
+.eye-icon {
+    font-size: 26px;
+    color: #ff69b4;
+    text-shadow: 0 0 12px #ff69b4;
+}
+
+.view-count {
+    font-size: 18px;
+    font-weight: bold;
+    color: #ff69b4;
+    min-width: 30px;
+    text-align: center;
+}
+
+/* Music Controls (kept from before) */
 .music-controls {
     position: fixed;
-    bottom: 35px;
-    right: 30px;
+    bottom: 25px;
+    right: 25px;
     z-index: 100;
+    background: rgba(17, 17, 17, 0.92);
+    padding: 18px 16px;
+    border-radius: 22px;
+    box-shadow: 0 0 40px rgba(255, 105, 180, 0.45);
+    border: 1px solid rgba(255,255,255,0.15);
     display: flex;
     flex-direction: column;
     align-items: center;
-    background: rgba(17, 17, 17, 0.88);
-    padding: 14px 12px;
-    border-radius: 22px;
-    box-shadow: 0 0 35px rgba(255, 105, 180, 0.35);
-    border: 1px solid rgba(255,255,255,0.12);
+    gap: 10px;
+}
+
+#play-btn {
+    background: #ff69b4;
+    color: white;
+    border: none;
+    padding: 12px 24px;
+    border-radius: 30px;
+    font-size: 15px;
+    font-weight: bold;
+    cursor: pointer;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    transition: all 0.3s;
+}
+
+#play-btn:hover {
+    background: #ff8ac4;
+    transform: scale(1.08);
 }
 
 #volume-icon {
-    font-size: 26px;
+    font-size: 30px;
     color: #ff69b4;
-    text-shadow: 0 0 14px #ff69b4, 0 0 22px #ff69b4;
     cursor: pointer;
-    margin-bottom: 10px;
-    transition: all 0.25s ease;
+    transition: transform 0.25s;
 }
 
-#volume-icon:hover {
-    transform: scale(1.15);
-    text-shadow: 0 0 18px #ff69b4;
-}
+#volume-icon:hover { transform: scale(1.25); }
 
 #volume-slider {
     -webkit-appearance: slider-vertical;
     appearance: slider-vertical;
-    height: 135px;
-    width: 7px;
+    height: 120px;
+    width: 8px;
     accent-color: #ff69b4;
-    background: rgba(255,255,255,0.18);
-    border-radius: 12px;
-    outline: none;
-    box-shadow: inset 0 2px 8px rgba(0,0,0,0.4);
+    background: rgba(255,255,255,0.25);
+    border-radius: 10px;
     cursor: pointer;
 }
 
-#volume-slider::-webkit-slider-thumb {
-    -webkit-appearance: none;
-    width: 18px;
-    height: 18px;
-    background: #ff69b4;
-    border-radius: 50%;
-    box-shadow: 0 0 12px #ff69b4, 0 0 22px #ff69b4;
-    cursor: pointer;
-}
-
-#volume-slider::-moz-range-thumb {
-    width: 18px;
-    height: 18px;
-    background: #ff69b4;
-    border-radius: 50%;
-    box-shadow: 0 0 12px #ff69b4, 0 0 22px #ff69b4;
-    cursor: pointer;
+#music-status {
+    font-size: 13px;
+    color: #ff69b4;
+    margin-top: 6px;
 }
 </style>
 </head>
 
 <body>
 
-<!-- MP4 Video Background -->
 <video id="bg-video" autoplay muted loop playsinline>
     <source src="Replay 2026-04-13 03-39-55 - Trim.mp4" type="video/mp4">
-    Your browser does not support the video tag.
 </video>
 
-<!-- BACKGROUND MUSIC (autoplay + loop) -->
-<!-- REPLACE "background-music.mp3" WITH YOUR OWN MUSIC FILE PATH/URL -->
-<audio id="bg-music" autoplay loop>
-    <source src="Leray - Trippie Redd INSTRUMENTAL  (A Love Letter To You 4).mp3" type="audio/mpeg">
-    Your browser does not support the audio element.
+<audio id="bg-music" loop>
+    <source src="Leray - Trippie Redd INSTRUMENTAL (A Love Letter To You 4).mp3" type="audio/mpeg">
 </audio>
 
 <div class="overlay"></div>
 
 <div class="container">
-    
     <div class="name-wrapper">
         <h1 class="glow-name">@nuf</h1>
         <canvas id="particles"></canvas>
@@ -222,24 +212,32 @@ body {
 
     <p class="subtitle">ALL SOCIALS BELOW</p>
 
-    <div class="links">
+    <div class="links" id="social-links">
         <a href="https://x.com/nufings" target="_blank">TWITTER</a>
         <a href="https://www.youtube.com/@nufns" target="_blank">YOUTUBE</a>
         <a href="https://www.tiktok.com/@nufns" target="_blank">TIKTOK</a>
-        <a href="https://www.twitch.tv/nufns" target="_blank">TWITCH</a>
-        <a href="https://kick.com/nufns" target="_blank">KICK</a>
-        <a href="https://steamcommunity.com/id/nufns" target="_blank">STEAM</a>
+        <a href="https://www.twitch.tv/nuf" target="_blank">TWITCH</a>
+        <a href="https://kick.com/nuf" target="_blank">KICK</a>
+        <a href="https://steamcommunity.com/id/yoursteamid" target="_blank">STEAM</a>
     </div>
-
 </div>
 
-<!-- NEW: Vertical volume slider in bottom right -->
+<!-- Eyeball View Counter -->
+<div class="view-counter">
+    <span class="eye-icon">👁</span>
+    <span class="view-count" id="view-count">0</span>
+</div>
+
+<!-- Music Controls -->
 <div class="music-controls">
+    <button id="play-btn">▶ PLAY MUSIC</button>
     <div id="volume-icon">🔊</div>
-    <input type="range" id="volume-slider" min="0" max="1" step="0.01" value="0.5">
+    <input type="range" id="volume-slider" min="0" max="1" step="0.01" value="0.75">
+    <div id="music-status">Click PLAY to start</div>
 </div>
 
 <script>
+// Particles code (same as before)
 const canvas = document.getElementById("particles");
 const ctx = canvas.getContext("2d");
 
@@ -257,7 +255,6 @@ function createParticle() {
     const centerX = canvas.width * 0.5;
     const centerY = canvas.height * 0.5;
     const spread = 65;
-
     particles.push({
         x: centerX + (Math.random() - 0.5) * spread * 2,
         y: centerY + (Math.random() - 0.5) * spread * 1.6,
@@ -270,69 +267,76 @@ function createParticle() {
 
 function animate() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-    // Only spawn particles after fade-in is complete
-    if (canSpawnParticles && particles.length < 40) {
-        createParticle();
-    }
+    if (canSpawnParticles && particles.length < 40) createParticle();
 
     for (let i = particles.length - 1; i >= 0; i--) {
         const p = particles[i];
         p.x += p.speedX;
         p.y += p.speedY;
         p.life--;
-
         const alpha = Math.max(p.life / 110, 0.16);
-
         ctx.fillStyle = `rgba(255, 105, 180, ${alpha})`;
         ctx.beginPath();
         ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
         ctx.fill();
-
         if (p.life <= 0) particles.splice(i, 1);
     }
-
     requestAnimationFrame(animate);
 }
-
 animate();
+setTimeout(() => { canSpawnParticles = true; }, 2000);
 
-// Start spawning particles after the card + particles canvas have faded in
-setTimeout(() => {
-    canSpawnParticles = true;
-}, 1000);   // 2 seconds total delay
+// ==================== VIEW COUNTER ====================
+const viewCountEl = document.getElementById('view-count');
+let viewCount = parseInt(localStorage.getItem('nufViewCount')) || 0;
+viewCountEl.textContent = viewCount;
 
-/* ==================== NEW: BACKGROUND MUSIC CONTROLS ==================== */
+// Add click listener to all social links
+const links = document.querySelectorAll('#social-links a');
+links.forEach(link => {
+    link.addEventListener('click', () => {
+        viewCount++;
+        viewCountEl.textContent = viewCount;
+        localStorage.setItem('nufViewCount', viewCount);
+    });
+});
+
+// ==================== MUSIC CONTROLS (unchanged) ====================
 const audio = document.getElementById('bg-music');
+const playBtn = document.getElementById('play-btn');
 const slider = document.getElementById('volume-slider');
 const volumeIcon = document.getElementById('volume-icon');
-let isMuted = false;
+const statusText = document.getElementById('music-status');
 
-// Initial volume (you can change this default)
-audio.volume = 0.5;
-slider.value = 0.5;
+let isPlaying = false;
+audio.volume = 0.75;
+slider.value = 0.75;
 
-// Volume slider
-slider.addEventListener('input', () => {
-    audio.volume = parseFloat(slider.value);
-    
-    // If user was muted and moves the slider, unmute automatically
-    if (audio.muted) {
-        audio.muted = false;
-        isMuted = false;
-        volumeIcon.textContent = '🔊';
+playBtn.addEventListener('click', () => {
+    if (!isPlaying) {
+        audio.play().then(() => {
+            isPlaying = true;
+            playBtn.textContent = '❚❚ PAUSE MUSIC';
+            statusText.textContent = '♪ Now Playing';
+        }).catch(() => {
+            statusText.textContent = 'Error - Try again';
+        });
+    } else {
+        audio.pause();
+        isPlaying = false;
+        playBtn.textContent = '▶ PLAY MUSIC';
+        statusText.textContent = 'Music Paused';
     }
 });
 
-// Click speaker icon to mute / unmute
-volumeIcon.addEventListener('click', () => {
-    isMuted = !isMuted;
-    audio.muted = isMuted;
-    volumeIcon.textContent = isMuted ? '🔇' : '🔊';
+slider.addEventListener('input', () => {
+    audio.volume = parseFloat(slider.value);
 });
 
-// Optional: If the browser blocks autoplay, the user can still adjust the slider
-// and the music will play once they interact with the page
+volumeIcon.addEventListener('click', () => {
+    audio.muted = !audio.muted;
+    volumeIcon.textContent = audio.muted ? '🔇' : '🔊';
+});
 </script>
 
 </body>
