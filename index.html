@@ -99,35 +99,34 @@ body {
     border-color: rgba(255, 105, 180, 0.3);
 }
 
-/* View Counter - ABOVE the main box */
+/* View Counter - Top Right Corner */
 .view-counter {
     position: fixed;
-    top: 18%;                    /* Controls how far above the box */
-    left: 50%;
-    transform: translateX(-50%);
+    top: 20px;
+    right: 25px;
     z-index: 30;
     display: flex;
     align-items: center;
-    gap: 12px;
-    background: rgba(20, 20, 20, 0.85);
-    padding: 10px 22px;
-    border-radius: 50px;
-    box-shadow: 0 0 35px rgba(255, 105, 180, 0.5);
-    border: 1px solid rgba(255, 105, 180, 0.35);
+    gap: 10px;
+    background: rgba(17, 17, 17, 0.85);
+    padding: 8px 16px;
+    border-radius: 30px;
+    box-shadow: 0 0 25px rgba(255, 105, 180, 0.4);
+    border: 1px solid rgba(255, 105, 180, 0.3);
     pointer-events: none;
 }
 
 .eye-icon {
-    font-size: 34px;
+    font-size: 28px;
     color: #ff69b4;
-    text-shadow: 0 0 16px #ff69b4, 0 0 28px #ff69b4;
+    text-shadow: 0 0 12px #ff69b4;
 }
 
 .view-count {
-    font-size: 24px;
+    font-size: 20px;
     font-weight: bold;
     color: #ff69b4;
-    min-width: 45px;
+    min-width: 35px;
     text-align: center;
 }
 </style>
@@ -141,95 +140,4 @@ body {
 
 <div class="overlay"></div>
 
-<!-- View Counter ABOVE the transparent box -->
-<div class="view-counter">
-    <span class="eye-icon">👁</span>
-    <span class="view-count" id="view-count">0</span>
-</div>
-
-<div class="container">
-    <div class="name-wrapper">
-        <h1 class="glow-name">@nuf</h1>
-        <canvas id="particles"></canvas>
-    </div>
-
-    <p class="subtitle">ALL SOCIALS BELOW</p>
-
-    <div class="links" id="social-links">
-        <a href="https://x.com/nufings" target="_blank">TWITTER</a>
-        <a href="https://www.youtube.com/@nufns" target="_blank">YOUTUBE</a>
-        <a href="https://www.tiktok.com/@nufns" target="_blank">TIKTOK</a>
-        <a href="https://www.twitch.tv/nuf" target="_blank">TWITCH</a>
-        <a href="https://kick.com/nuf" target="_blank">KICK</a>
-        <a href="https://steamcommunity.com/id/yoursteamid" target="_blank">STEAM</a>
-    </div>
-</div>
-
-<script>
-// Particles
-const canvas = document.getElementById("particles");
-const ctx = canvas.getContext("2d");
-
-function resizeCanvas() {
-    canvas.width = canvas.offsetWidth;
-    canvas.height = canvas.offsetHeight;
-}
-resizeCanvas();
-window.addEventListener("resize", resizeCanvas);
-
-let particles = [];
-let canSpawnParticles = false;
-
-function createParticle() {
-    const centerX = canvas.width * 0.5;
-    const centerY = canvas.height * 0.5;
-    const spread = 65;
-    particles.push({
-        x: centerX + (Math.random() - 0.5) * spread * 2,
-        y: centerY + (Math.random() - 0.5) * spread * 1.6,
-        size: Math.random() * 2.6 + 1.1,
-        speedX: (Math.random() - 0.5) * 0.9,
-        speedY: (Math.random() - 0.5) * 0.9,
-        life: 95 + Math.random() * 45
-    });
-}
-
-function animate() {
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-    if (canSpawnParticles && particles.length < 40) createParticle();
-
-    for (let i = particles.length - 1; i >= 0; i--) {
-        const p = particles[i];
-        p.x += p.speedX;
-        p.y += p.speedY;
-        p.life--;
-        const alpha = Math.max(p.life / 110, 0.16);
-        ctx.fillStyle = `rgba(255, 105, 180, ${alpha})`;
-        ctx.beginPath();
-        ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
-        ctx.fill();
-        if (p.life <= 0) particles.splice(i, 1);
-    }
-    requestAnimationFrame(animate);
-}
-animate();
-
-setTimeout(() => { canSpawnParticles = true; }, 2000);
-
-// View Counter Logic
-const viewCountEl = document.getElementById('view-count');
-let viewCount = parseInt(localStorage.getItem('nufViewCount')) || 0;
-viewCountEl.textContent = viewCount;
-
-// Count +1 every time a link is clicked
-document.querySelectorAll('#social-links a').forEach(link => {
-    link.addEventListener('click', () => {
-        viewCount++;
-        viewCountEl.textContent = viewCount;
-        localStorage.setItem('nufViewCount', viewCount);
-    });
-});
-</script>
-
-</body>
-</html>
+<!-- View Counter - Top
