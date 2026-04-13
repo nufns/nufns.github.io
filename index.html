@@ -17,29 +17,29 @@ body {
     overflow: hidden;
 }
 
-/* GIF Background */
-#bg-gif {
+/* MP4 Video Background */
+#bg-video {
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    object-fit: cover;     /* Makes the GIF fill the screen nicely */
+    object-fit: cover;
     z-index: -2;
 }
 
-/* Dark overlay so text is readable */
+/* Dark overlay */
 .overlay {
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(0, 0, 0, 0.65);   /* Make this 0.75 or 0.8 if the GIF is too bright */
+    background: rgba(0, 0, 0, 0.65);
     z-index: -1;
 }
 
-/* Card and other styles (unchanged) */
+/* Card */
 .container {
     text-align: center;
     background: rgba(17, 17, 17, 0.85);
@@ -51,11 +51,13 @@ body {
     z-index: 2;
 }
 
+/* Name wrapper */
 .name-wrapper {
     position: relative;
     display: inline-block;
 }
 
+/* Name */
 .glow-name {
     position: relative;
     z-index: 2;
@@ -65,56 +67,31 @@ body {
     margin: 0;
 }
 
+/* Particles - Floating freely around @nuf */
 #particles {
     position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
+    top: -80px;
+    left: -80px;
+    width: calc(100% + 160px);
+    height: calc(100% + 160px);
     pointer-events: none;
     z-index: 1;
-}
-
-p {
-    color: #ddd;
-    font-size: 14px;
-    margin: 20px 0 25px;
-}
-
-.links {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-}
-
-.links a {
-    display: block;
-    padding: 14px 20px;
-    border-radius: 10px;
-    background: rgba(26, 26, 26, 0.9);
-    text-decoration: none;
-    color: white;
-    font-size: 15px;
-    transition: all 0.25s ease;
-    border: 1px solid rgba(255,255,255,0.08);
-}
-
-.links a:hover {
-    background: rgba(37, 37, 37, 0.95);
-    transform: translateY(-2px);
-    box-shadow: 0 4px 15px rgba(255, 40, 40, 0.2);
 }
 </style>
 </head>
 
 <body>
 
-<!-- GIF Background - REPLACE WITH YOUR RAW URL -->
-<img id="bg-gif" src="Replay 2026-04-13 03-39-55 - Trim.mp4">
+<!-- MP4 Video Background - Plays automatically -->
+<video id="bg-video" autoplay muted loop playsinline>
+    <source src="Replay 2026-04-13 03-39-55 - Trim.mp4" type="video/mp4">
+    Your browser does not support the video tag.
+</video>
 
 <div class="overlay"></div>
 
 <div class="container">
+    
     <div class="name-wrapper">
         <h1 class="glow-name">@nuf</h1>
         <canvas id="particles"></canvas>
@@ -127,10 +104,10 @@ p {
         <a href="https://www.youtube.com/@nufns">YouTube</a>
         <a href="https://www.tiktok.com/@nufns">TIKTOK</a>
     </div>
+
 </div>
 
 <script>
-/* Particle code (unchanged from before) */
 const canvas = document.getElementById("particles");
 const ctx = canvas.getContext("2d");
 
@@ -144,36 +121,41 @@ window.addEventListener("resize", resizeCanvas);
 let particles = [];
 
 function createParticle() {
-    const padding = 6;
     particles.push({
-        x: Math.random() * (canvas.width - padding * 2) + padding,
-        y: Math.random() * (canvas.height - padding * 2) + padding,
-        size: Math.random() * 2.5 + 1.2,
-        speedX: (Math.random() - 0.5) * 1.8,
-        speedY: (Math.random() - 0.5) * 1.8,
-        life: 70 + Math.random() * 40
+        x: Math.random() * canvas.width,
+        y: Math.random() * canvas.height,
+        size: Math.random() * 2.8 + 1.3,
+        speedX: (Math.random() - 0.5) * 2.2,
+        speedY: (Math.random() - 0.5) * 2.2,
+        life: 80 + Math.random() * 50
     });
 }
 
 function animate() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-    if (particles.length < 45) createParticle();
+    if (particles.length < 55) {
+        createParticle();
+    }
 
     for (let i = particles.length - 1; i >= 0; i--) {
         const p = particles[i];
+        
         p.x += p.speedX;
         p.y += p.speedY;
         p.life--;
 
-        const alpha = Math.max(p.life / 80, 0.15);
+        const alpha = Math.max(p.life / 90, 0.18);
 
-        ctx.fillStyle = `rgba(255, 60, 60, ${alpha})`;
+        // Bright Pink Particles
+        ctx.fillStyle = `rgba(255, 105, 180, ${alpha})`;
         ctx.beginPath();
         ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
         ctx.fill();
 
-        if (p.life <= 0) particles.splice(i, 1);
+        if (p.life <= 0) {
+            particles.splice(i, 1);
+        }
     }
 
     requestAnimationFrame(animate);
