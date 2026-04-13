@@ -6,111 +6,199 @@
 <title>NUF</title>
 
 <style>
-body {
-    margin: 0;
-    color: white;
-    font-family: Arial, sans-serif;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    overflow: hidden;
-}
+    body {
+        margin: 0;
+        color: white;
+        font-family: Arial, sans-serif;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        overflow: hidden;
+        background: #000; /* fallback in case video fails */
+    }
 
-/* MP4 Video Background */
-#bg-video {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    z-index: -2;
-}
+    #bg-video {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        z-index: -2;
+    }
 
-/* Dark overlay */
-.overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.65);
-    z-index: -1;
-}
+    .overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.65);
+        z-index: -1;
+    }
 
-/* Card with fade-in */
-.container {
-    text-align: center;
-    background: rgba(17, 17, 17, 0.68);
-    padding: 60px 40px;
-    border-radius: 15px;
-    box-shadow: 0 0 40px rgba(255,255,255,0.08);
-    width: 340px;
-    position: relative;
-    z-index: 2;
-    
-    opacity: 0;
-    animation: fadeIn 1.5s ease forwards;
-    animation-delay: 0.2s;
-}
+    .container {
+        text-align: center;
+        background: rgba(17, 17, 17, 0.68);
+        padding: 60px 40px;
+        border-radius: 15px;
+        box-shadow: 0 0 40px rgba(255,255,255,0.08);
+        width: 340px;
+        position: relative;
+        z-index: 2;
+        opacity: 0;
+        animation: fadeIn 1.5s ease forwards;
+        animation-delay: 0.2s;
+    }
 
-@keyframes fadeIn {
-    from { opacity: 0; transform: translateY(25px); }
-    to   { opacity: 1; transform: translateY(0); }
-}
+    @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(25px); }
+        to   { opacity: 1; transform: translateY(0); }
+    }
 
-/* Name */
-.name-wrapper {
-    position: relative;
-    display: inline-block;
-}
+    .glow-name {
+        font-size: 28px;
+        color: #ff69b4;
+        text-shadow: 0 0 12px #ff69b4, 0 0 28px #ff69b4;
+        margin: 0;
+    }
 
-.glow-name {
-    position: relative;
-    z-index: 2;
-    font-size: 28px;
-    color: #ff69b4;
-    text-shadow: 0 0 12px #ff69b4, 0 0 28px #ff69b4;
-    margin: 0;
-}
+    .subtitle {
+        font-size: 16px;
+        color: #ff69b4;
+        text-shadow: 0 0 8px #ff69b4, 0 0 18px #ff69b4;
+        margin: 18px 0 25px;
+        letter-spacing: 1px;
+        font-weight: bold;
+    }
 
-/* Subtitle */
-.subtitle {
-    font-size: 16px;
-    color: #ff69b4;
-    text-shadow: 0 0 8px #ff69b4, 0 0 18px #ff69b4;
-    margin: 18px 0 25px;
-    letter-spacing: 1px;
-    font-weight: bold;
-}
+    .links {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        margin-top: 10px;
+    }
 
-/* Particles */
-#particles {
-    position: absolute;
-    top: -55px;
-    left: -55px;
-    width: calc(100% + 110px);
-    height: calc(100% + 110px);
-    pointer-events: none;
-    z-index: 1;
-    opacity: 0;
-    animation: particlesFadeIn 0.8s ease forwards;
-    animation-delay: 1.9s;
-}
+    .links a {
+        display: block;
+        padding: 14px 20px;
+        border-radius: 10px;
+        background: rgba(26, 26, 26, 0.9);
+        text-decoration: none;
+        color: white;
+        font-size: 15px;
+        transition: all 0.25s ease;
+        border: 1px solid rgba(255,255,255,0.08);
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
 
-@keyframes particlesFadeIn {
-    to { opacity: 1; }
-}
+    .links a:hover {
+        background: rgba(37, 37, 37, 0.95);
+        transform: translateY(-2px);
+        box-shadow: 0 4px 15px rgba(255, 105, 180, 0.25);
+        border-color: rgba(255, 105, 180, 0.3);
+    }
 
-/* Links */
-.links {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    margin-top: 10px;
-}
+    /* View Counter - Top Right */
+    .view-counter {
+        position: fixed;
+        top: 20px;
+        right: 25px;
+        z-index: 100;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        background: rgba(17, 17, 17, 0.85);
+        padding: 8px 18px;
+        border-radius: 30px;
+        box-shadow: 0 0 30px rgba(255, 105, 180, 0.45);
+        border: 1px solid rgba(255, 105, 180, 0.3);
+    }
 
-.links a {
-    display: block;
-    padding: 14px 20px
+    .eye-icon {
+        font-size: 28px;
+        color: #ff69b4;
+        text-shadow: 0 0 12px #ff69b4;
+    }
+
+    .view-count {
+        font-size: 20px;
+        font-weight: bold;
+        color: #ff69b4;
+    }
+</style>
+</head>
+
+<body>
+
+<video id="bg-video" autoplay muted loop playsinline>
+    <source src="Replay 2026-04-13 03-39-55 - Trim.mp4" type="video/mp4">
+</video>
+
+<div class="overlay"></div>
+
+<div class="container">
+    <div class="name-wrapper">
+        <h1 class="glow-name">@nuf</h1>
+        <canvas id="particles"></canvas>
+    </div>
+
+    <p class="subtitle">ALL SOCIALS BELOW</p>
+
+    <div class="links">
+        <a href="https://x.com/nufings" target="_blank">TWITTER</a>
+        <a href="https://www.youtube.com/@nufns" target="_blank">YOUTUBE</a>
+        <a href="https://www.tiktok.com/@nufns" target="_blank">TIKTOK</a>
+        <a href="https://www.twitch.tv/nuf" target="_blank">TWITCH</a>
+        <a href="https://kick.com/nuf" target="_blank">KICK</a>
+        <a href="https://steamcommunity.com/id/yoursteamid" target="_blank">STEAM</a>
+    </div>
+</div>
+
+<!-- View Counter -->
+<div class="view-counter">
+    <span class="eye-icon">👁</span>
+    <span class="view-count" id="view-count">0</span>
+</div>
+
+<script>
+// Safe canvas setup
+const canvas = document.getElementById("particles");
+let ctx;
+
+if (canvas) {
+    ctx = canvas.getContext("2d");
+
+    function resizeCanvas() {
+        if (!canvas) return;
+        canvas.width = canvas.offsetWidth;
+        canvas.height = canvas.offsetHeight;
+    }
+
+    resizeCanvas();
+    window.addEventListener("resize", resizeCanvas);
+
+    let particles = [];
+    let canSpawnParticles = false;
+
+    function createParticle() {
+        if (!canvas) return;
+        const centerX = canvas.width * 0.5;
+        const centerY = canvas.height * 0.5;
+        const spread = 65;
+
+        particles.push({
+            x: centerX + (Math.random() - 0.5) * spread * 2,
+            y: centerY + (Math.random() - 0.5) * spread * 1.6,
+            size: Math.random() * 2.6 + 1.1,
+            speedX: (Math.random() - 0.5) * 0.9,
+            speedY: (Math.random() - 0.5) * 0.9,
+            life: 95 + Math.random() * 45
+        });
+    }
+
+    function animate() {
+        if (!ctx || !canvas) return;
+        ctx.clearRect(0, 0, canvas.width
