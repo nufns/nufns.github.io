@@ -40,7 +40,7 @@ body {
 .container {
     text-align: center;
     background: rgba(17, 17, 17, 0.68);
-    padding: 50px 40px 40px;   /* Reduced top padding */
+    padding: 50px 40px 40px;
     border-radius: 15px;
     box-shadow: 0 0 40px rgba(255,255,255,0.08);
     width: 340px;
@@ -56,23 +56,30 @@ body {
     to   { opacity: 1; transform: translateY(0); }
 }
 
+.name-wrapper {
+    position: relative;
+    display: inline-block;
+}
+
 .glow-name {
-    font-size: 32px;           /* Slightly bigger for better look */
+    font-size: 32px;
     color: #ff69b4;
     text-shadow: 0 0 12px #ff69b4, 0 0 28px #ff69b4;
-    margin: 0 0 8px 0;         /* Tight margin below name */
+    margin: 0 0 8px 0;
+    position: relative;
+    z-index: 2;           /* Ensures text stays in front */
 }
 
 .subtitle {
     font-size: 15px;
     color: #ff69b4;
     text-shadow: 0 0 8px #ff69b4, 0 0 18px #ff69b4;
-    margin: 5px 0 25px 0;      /* Much smaller gap here */
+    margin: 5px 0 25px 0;
     letter-spacing: 1px;
     font-weight: bold;
 }
 
-/* Particles */
+/* Particles - Now BEHIND the text */
 #particles {
     position: absolute;
     top: -55px;
@@ -80,7 +87,7 @@ body {
     width: calc(100% + 110px);
     height: calc(100% + 110px);
     pointer-events: none;
-    z-index: 1;
+    z-index: 1;           /* Lower than the text (z-index: 2) */
 }
 
 /* Links */
@@ -174,7 +181,7 @@ body {
 </div>
 
 <script>
-// Particles
+// Particles (now behind the text)
 const canvas = document.getElementById("particles");
 const ctx = canvas.getContext("2d");
 
@@ -235,7 +242,7 @@ setTimeout(() => {
     canSpawnParticles = true;
 }, 600);
 
-// View Counter (increments on every visit)
+// View Counter
 const viewCountEl = document.getElementById('view-count');
 let viewCount = parseInt(localStorage.getItem('nufTotalViews')) || 0;
 viewCount++;
