@@ -8,23 +8,49 @@
 <style>
 body {
     margin: 0;
-    background: #0d0d0d;
     color: white;
     font-family: Arial, sans-serif;
     display: flex;
     justify-content: center;
     align-items: center;
     height: 100vh;
+    overflow: hidden; /* Prevents scrollbars */
+}
+
+/* Video Background */
+#bg-video {
+    position: fixed;
+    right: 0;
+    bottom: 0;
+    min-width: 100%;
+    min-height: 100%;
+    width: auto;
+    height: auto;
+    z-index: -1;           /* Behind everything */
+    object-fit: cover;     /* Keeps aspect ratio and covers screen */
+}
+
+/* Dark overlay so text remains readable */
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.65); /* Adjust darkness here */
+    z-index: -1;
 }
 
 /* Card */
 .container {
     text-align: center;
-    background: #111;
+    background: rgba(17, 17, 17, 0.85); /* Semi-transparent dark card */
     padding: 60px 40px;
     border-radius: 15px;
-    box-shadow: 0 0 40px rgba(255,255,255,0.05);
+    box-shadow: 0 0 40px rgba(255,255,255,0.08);
     width: 320px;
+    position: relative;
+    z-index: 2;
 }
 
 /* Name wrapper */
@@ -56,7 +82,7 @@ body {
 
 /* Bio */
 p {
-    color: #aaa;
+    color: #ddd;
     font-size: 14px;
     margin: 20px 0 25px;
 }
@@ -72,24 +98,32 @@ p {
     display: block;
     padding: 14px 20px;
     border-radius: 10px;
-    background: #1a1a1a;
+    background: rgba(26, 26, 26, 0.9);
     text-decoration: none;
     color: white;
     font-size: 15px;
     transition: all 0.25s ease;
-    border: 1px solid rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.08);
 }
 
 .links a:hover {
-    background: #252525;
+    background: rgba(37, 37, 37, 0.95);
     transform: translateY(-2px);
-    box-shadow: 0 4px 15px rgba(255, 40, 40, 0.15);
-    border-color: rgba(255, 60, 60, 0.2);
+    box-shadow: 0 4px 15px rgba(255, 40, 40, 0.2);
 }
 </style>
 </head>
 
 <body>
+
+<!-- Video Background -->
+<video id="bg-video" autoplay muted loop playsinline>
+    <source src="https://youtu.be/spJqqu2H8n4" type="video/mp4">
+    Your browser does not support the video tag.
+</video>
+
+<!-- Dark overlay for readability -->
+<div class="overlay"></div>
 
 <div class="container">
     
@@ -101,9 +135,9 @@ p {
     <p>EVERYTHING NUF</p>
 
     <div class="links">
-        <a href="https://x.com/nufings">TWITTER</a>
-        <a href="https://www.youtube.com/@nufns">YOUTUBE</a>
-        <a href="https://www.tiktok.com/@nufns">TIKTOK</a>
+        <a href="#">Discord</a>
+        <a href="https://www.youtube.com/@nufns">YouTube</a>
+        <a href="#">GitHub</a>
     </div>
 
 </div>
@@ -126,17 +160,16 @@ function createParticle() {
     particles.push({
         x: Math.random() * (canvas.width - padding * 2) + padding,
         y: Math.random() * (canvas.height - padding * 2) + padding,
-        size: Math.random() * 2.5 + 1.2,     // Bigger and more visible
+        size: Math.random() * 2.5 + 1.2,
         speedX: (Math.random() - 0.5) * 1.8,
         speedY: (Math.random() - 0.5) * 1.8,
-        life: 70 + Math.random() * 40        // Longer life
+        life: 70 + Math.random() * 40
     });
 }
 
 function animate() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-    // More particles for better visibility
     if (particles.length < 45) {
         createParticle();
     }
@@ -148,7 +181,7 @@ function animate() {
         p.y += p.speedY;
         p.life--;
 
-        const alpha = Math.max(p.life / 80, 0.15);   // Higher minimum opacity
+        const alpha = Math.max(p.life / 80, 0.15);
 
         ctx.fillStyle = `rgba(255, 60, 60, ${alpha})`;
         ctx.beginPath();
