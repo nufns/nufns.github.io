@@ -24,22 +24,22 @@ body {
     left: 0;
     width: 100%;
     height: 100%;
-    object-fit: cover;        /* Covers the whole screen nicely */
+    object-fit: cover;     /* Makes the GIF fill the screen nicely */
     z-index: -2;
 }
 
-/* Dark overlay for readability */
+/* Dark overlay so text is readable */
 .overlay {
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(0, 0, 0, 0.65);   /* Increase to 0.75–0.8 if too bright */
+    background: rgba(0, 0, 0, 0.65);   /* Make this 0.75 or 0.8 if the GIF is too bright */
     z-index: -1;
 }
 
-/* Card */
+/* Card and other styles (unchanged) */
 .container {
     text-align: center;
     background: rgba(17, 17, 17, 0.85);
@@ -109,8 +109,8 @@ p {
 
 <body>
 
-<!-- GIF Background - CHANGE THIS URL -->
-<img id="bg-gif" src="https://cdn.akamai.steamstatic.com/steamcommunity/public/images/items/1263950/b31c14955cd9e39d704f7dfd36cb9cc2129d6fbc.mp4" alt="background">
+<!-- GIF Background - REPLACE WITH YOUR RAW URL -->
+<img id="bg-gif" src="https://raw.githubusercontent.com/yourusername/your-repo-name/main/your-gif-name.gif" alt="background">
 
 <div class="overlay"></div>
 
@@ -130,7 +130,7 @@ p {
 </div>
 
 <script>
-/* Particle script remains the same */
+/* Particle code (unchanged from before) */
 const canvas = document.getElementById("particles");
 const ctx = canvas.getContext("2d");
 
