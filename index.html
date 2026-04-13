@@ -35,7 +35,7 @@ body {
     z-index: -1;
 }
 
-/* Main Card */
+/* Main Transparent Card */
 .container {
     text-align: center;
     background: rgba(17, 17, 17, 0.68);
@@ -99,35 +99,35 @@ body {
     border-color: rgba(255, 105, 180, 0.3);
 }
 
-/* View Counter - Placed ABOVE the card */
+/* View Counter - ABOVE the main box */
 .view-counter {
     position: fixed;
-    top: 22%;                    /* Adjust this value if you want it higher/lower */
+    top: 18%;                    /* Controls how far above the box */
     left: 50%;
     transform: translateX(-50%);
-    z-index: 20;
-    background: rgba(17, 17, 17, 0.75);
-    padding: 12px 24px;
-    border-radius: 40px;
+    z-index: 30;
     display: flex;
     align-items: center;
     gap: 12px;
-    box-shadow: 0 0 30px rgba(255, 105, 180, 0.45);
-    border: 1px solid rgba(255, 105, 180, 0.3);
+    background: rgba(20, 20, 20, 0.85);
+    padding: 10px 22px;
+    border-radius: 50px;
+    box-shadow: 0 0 35px rgba(255, 105, 180, 0.5);
+    border: 1px solid rgba(255, 105, 180, 0.35);
     pointer-events: none;
 }
 
 .eye-icon {
-    font-size: 32px;
+    font-size: 34px;
     color: #ff69b4;
-    text-shadow: 0 0 15px #ff69b4, 0 0 25px #ff69b4;
+    text-shadow: 0 0 16px #ff69b4, 0 0 28px #ff69b4;
 }
 
 .view-count {
-    font-size: 22px;
+    font-size: 24px;
     font-weight: bold;
     color: #ff69b4;
-    min-width: 40px;
+    min-width: 45px;
     text-align: center;
 }
 </style>
@@ -141,7 +141,7 @@ body {
 
 <div class="overlay"></div>
 
-<!-- View Counter (above the box) -->
+<!-- View Counter ABOVE the transparent box -->
 <div class="view-counter">
     <span class="eye-icon">👁</span>
     <span class="view-count" id="view-count">0</span>
@@ -216,12 +216,12 @@ animate();
 
 setTimeout(() => { canSpawnParticles = true; }, 2000);
 
-// ==================== VIEW COUNTER ====================
+// View Counter Logic
 const viewCountEl = document.getElementById('view-count');
 let viewCount = parseInt(localStorage.getItem('nufViewCount')) || 0;
 viewCountEl.textContent = viewCount;
 
-// Count a view when any link is clicked
+// Count +1 every time a link is clicked
 document.querySelectorAll('#social-links a').forEach(link => {
     link.addEventListener('click', () => {
         viewCount++;
