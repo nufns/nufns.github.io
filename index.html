@@ -61,7 +61,7 @@ p {
     margin: 20px 0 25px;
 }
 
-/* Fixed & Improved Social Links */
+/* Social Links */
 .links {
     display: flex;
     flex-direction: column;
@@ -122,21 +122,22 @@ window.addEventListener("resize", resizeCanvas);
 let particles = [];
 
 function createParticle() {
-    const padding = 8;
+    const padding = 6;
     particles.push({
         x: Math.random() * (canvas.width - padding * 2) + padding,
         y: Math.random() * (canvas.height - padding * 2) + padding,
-        size: Math.random() * 1.2 + 0.6,
-        speedX: (Math.random() - 0.5) * 1.2,
-        speedY: (Math.random() - 0.5) * 1.2,
-        life: 45 + Math.random() * 30
+        size: Math.random() * 2.5 + 1.2,     // Bigger and more visible
+        speedX: (Math.random() - 0.5) * 1.8,
+        speedY: (Math.random() - 0.5) * 1.8,
+        life: 70 + Math.random() * 40        // Longer life
     });
 }
 
 function animate() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-    if (particles.length < 25) {
+    // More particles for better visibility
+    if (particles.length < 45) {
         createParticle();
     }
 
@@ -147,9 +148,9 @@ function animate() {
         p.y += p.speedY;
         p.life--;
 
-        const alpha = Math.max(p.life / 60, 0);
+        const alpha = Math.max(p.life / 80, 0.15);   // Higher minimum opacity
 
-        ctx.fillStyle = `rgba(255, 40, 40, ${alpha})`;
+        ctx.fillStyle = `rgba(255, 60, 60, ${alpha})`;
         ctx.beginPath();
         ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
         ctx.fill();
