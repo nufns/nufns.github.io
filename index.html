@@ -39,24 +39,25 @@ body {
     z-index: -1;
 }
 
-/* Card */
+/* Card - slightly transparent for sleek glass look */
 .container {
     text-align: center;
     background: rgba(17, 17, 17, 0.68);
     padding: 60px 40px;
     border-radius: 15px;
     box-shadow: 0 0 40px rgba(255,255,255,0.08);
-    width: 340px; /* slightly wider for 6 icons */
+    width: 340px; /* slightly wider for 6 links */
     position: relative;
     z-index: 2;
 }
 
-/* Name */
+/* Name wrapper */
 .name-wrapper {
     position: relative;
     display: inline-block;
 }
 
+/* @nuf - now pink to match particles */
 .glow-name {
     position: relative;
     z-index: 2;
@@ -66,7 +67,7 @@ body {
     margin: 0;
 }
 
-/* Particles */
+/* Particles - confined tightly around @nuf only */
 #particles {
     position: absolute;
     top: -55px;
@@ -77,42 +78,33 @@ body {
     z-index: 1;
 }
 
-/* Social Icons */
-.social-links {
+/* Slick link boxes */
+.links {
     display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
-    gap: 16px;
-    margin-top: 25px;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 10px;
 }
 
-.social-links a {
+.links a {
     display: block;
-    width: 52px;
-    height: 52px;
-    border-radius: 12px;
+    padding: 14px 20px;
+    border-radius: 10px;
     background: rgba(26, 26, 26, 0.9);
-    transition: all 0.3s ease;
+    text-decoration: none;
+    color: white;
+    font-size: 15px;
+    transition: all 0.25s ease;
     border: 1px solid rgba(255,255,255,0.08);
-    overflow: hidden;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
 }
 
-.social-links a:hover {
-    transform: translateY(-4px) scale(1.08);
-    box-shadow: 0 6px 20px rgba(255, 105, 180, 0.3);
-    border-color: rgba(255, 105, 180, 0.4);
-}
-
-.social-links img {
-    width: 100%;
-    height: 100%;
-    object-fit: contain;
-    padding: 10px;
-    filter: brightness(0.95);
-}
-
-.social-links a:hover img {
-    filter: brightness(1.1);
+.links a:hover {
+    background: rgba(37, 37, 37, 0.95);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(255, 105, 180, 0.25);
+    border-color: rgba(255, 105, 180, 0.3);
 }
 </style>
 </head>
@@ -136,32 +128,19 @@ body {
 
     <p>EVERYTHING NUF</p>
 
-    <!-- Social Icons -->
-    <div class="social-links">
-        <a href="https://x.com/nufings" target="_blank" title="Twitter / X">
-            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/6f/Logo_of_Twitter.svg/512px-Logo_of_Twitter.svg.png" alt="Twitter">
-        </a>
-        <a href="https://www.youtube.com/@nufns" target="_blank" title="YouTube">
-            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/09/YouTube_full-color_icon_%282017%29.svg/512px-YouTube_full-color_icon_%282017%29.svg.png" alt="YouTube">
-        </a>
-        <a href="https://www.tiktok.com/@nufns" target="_blank" title="TikTok">
-            <img src="https://upload.wikimedia.org/wikipedia/en/thumb/a/a9/TikTok_logo.svg/512px-TikTok_logo.svg.png" alt="TikTok">
-        </a>
-        <a href="https://www.twitch.tv/nuf" target="_blank" title="Twitch">   <!-- ← Change username if needed -->
-            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2b/Twitch_logo.svg/512px-Twitch_logo.svg.png" alt="Twitch">
-        </a>
-        <a href="https://steamcommunity.com/id/yoursteamid" target="_blank" title="Steam">   <!-- ← Replace with your actual Steam profile link -->
-            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/83/Steam_icon_logo.svg/512px-Steam_icon_logo.svg.png" alt="Steam">
-        </a>
-        <a href="https://kick.com/nuf" target="_blank" title="Kick">   <!-- ← Change username if needed -->
-            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/4f/Kick_logo.svg/512px-Kick_logo.svg.png" alt="Kick">
-        </a>
+    <!-- Slick Text Boxes (now with Twitch, Kick, and Steam) -->
+    <div class="links">
+        <a href="https://x.com/nufings" target="_blank">TWITTER</a>
+        <a href="https://www.youtube.com/@nufns" target="_blank">YOUTUBE</a>
+        <a href="https://www.tiktok.com/@nufns" target="_blank">TIKTOK</a>
+        <a href="https://www.twitch.tv/nuf" target="_blank">TWITCH</a>          <!-- ← change username if needed -->
+        <a href="https://kick.com/nuf" target="_blank">KICK</a>                  <!-- ← change username if needed -->
+        <a href="https://steamcommunity.com/id/yoursteamid" target="_blank">STEAM</a>   <!-- ← replace with your actual Steam link -->
     </div>
 
 </div>
 
 <script>
-/* Particle script (unchanged - pink & slow around @nuf) */
 const canvas = document.getElementById("particles");
 const ctx = canvas.getContext("2d");
 
@@ -198,6 +177,7 @@ function animate() {
 
     for (let i = particles.length - 1; i >= 0; i--) {
         const p = particles[i];
+        
         p.x += p.speedX;
         p.y += p.speedY;
         p.life--;
@@ -209,7 +189,9 @@ function animate() {
         ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
         ctx.fill();
 
-        if (p.life <= 0) particles.splice(i, 1);
+        if (p.life <= 0) {
+            particles.splice(i, 1);
+        }
     }
 
     requestAnimationFrame(animate);
