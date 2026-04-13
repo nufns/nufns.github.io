@@ -39,10 +39,10 @@ body {
     z-index: -1;
 }
 
-/* Card - slightly transparent for sleek glass look */
+/* Card */
 .container {
     text-align: center;
-    background: rgba(17, 17, 17, 0.68); /* more transparent */
+    background: rgba(17, 17, 17, 0.68);
     padding: 60px 40px;
     border-radius: 15px;
     box-shadow: 0 0 40px rgba(255,255,255,0.08);
@@ -51,23 +51,22 @@ body {
     z-index: 2;
 }
 
-/* Name wrapper */
+/* Name */
 .name-wrapper {
     position: relative;
     display: inline-block;
 }
 
-/* @nuf - now pink to match particles */
 .glow-name {
     position: relative;
     z-index: 2;
     font-size: 28px;
-    color: #ff69b4; /* vibrant pink */
+    color: #ff69b4;
     text-shadow: 0 0 12px #ff69b4, 0 0 28px #ff69b4;
     margin: 0;
 }
 
-/* Particles - confined tightly around @nuf only */
+/* Particles - around @nuf only */
 #particles {
     position: absolute;
     top: -55px;
@@ -78,33 +77,41 @@ body {
     z-index: 1;
 }
 
-/* Slick link boxes (brought back) */
-.links {
+/* Social Icons - Sleek & Clickable */
+.social-links {
     display: flex;
-    flex-direction: column;
-    gap: 10px;
-    margin-top: 10px;
+    justify-content: center;
+    gap: 18px;
+    margin-top: 25px;
 }
 
-.links a {
+.social-links a {
     display: block;
-    padding: 14px 20px;
-    border-radius: 10px;
+    width: 52px;
+    height: 52px;
+    border-radius: 12px;
     background: rgba(26, 26, 26, 0.9);
-    text-decoration: none;
-    color: white;
-    font-size: 15px;
-    transition: all 0.25s ease;
+    transition: all 0.3s ease;
     border: 1px solid rgba(255,255,255,0.08);
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
+    overflow: hidden;
 }
 
-.links a:hover {
-    background: rgba(37, 37, 37, 0.95);
-    transform: translateY(-2px);
-    box-shadow: 0 4px 15px rgba(255, 105, 180, 0.25);
-    border-color: rgba(255, 105, 180, 0.3);
+.social-links a:hover {
+    transform: translateY(-4px) scale(1.08);
+    box-shadow: 0 6px 20px rgba(255, 105, 180, 0.3);
+    border-color: rgba(255, 105, 180, 0.4);
+}
+
+.social-links img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    padding: 10px;
+    filter: brightness(0.95);
+}
+
+.social-links a:hover img {
+    filter: brightness(1.1);
 }
 </style>
 </head>
@@ -128,10 +135,17 @@ body {
 
     <p>EVERYTHING NUF</p>
 
-    <div class="links">
-        <a href="https://x.com/nufings">TWITTER</a>
-        <a href="https://www.youtube.com/@nufns">YOUTUBE</a>
-        <a href="https://www.tiktok.com/@nufns">TIKTOK</a>
+    <!-- Clickable Social Icons -->
+    <div class="social-links">
+        <a href="https://x.com/nufings" target="_blank">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/6f/Logo_of_Twitter.svg/512px-Logo_of_Twitter.svg.png" alt="Twitter">
+        </a>
+        <a href="https://www.youtube.com/@nufns" target="_blank">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/09/YouTube_full-color_icon_%282017%29.svg/512px-YouTube_full-color_icon_%282017%29.svg.png" alt="YouTube">
+        </a>
+        <a href="https://www.tiktok.com/@nufns" target="_blank">
+            <img src="https://upload.wikimedia.org/wikipedia/en/thumb/a/a9/TikTok_logo.svg/512px-TikTok_logo.svg.png" alt="TikTok">
+        </a>
     </div>
 
 </div>
@@ -150,17 +164,16 @@ window.addEventListener("resize", resizeCanvas);
 let particles = [];
 
 function createParticle() {
-    // Spawn particles ONLY around the center (the @nuf area)
     const centerX = canvas.width * 0.5;
     const centerY = canvas.height * 0.5;
-    const spread = 65; // tight spread so they don't reach social links
+    const spread = 65;
 
     particles.push({
         x: centerX + (Math.random() - 0.5) * spread * 2,
         y: centerY + (Math.random() - 0.5) * spread * 1.6,
         size: Math.random() * 2.6 + 1.1,
-        speedX: (Math.random() - 0.5) * 0.9,   // much slower flow
-        speedY: (Math.random() - 0.5) * 0.9,   // much slower flow
+        speedX: (Math.random() - 0.5) * 0.9,
+        speedY: (Math.random() - 0.5) * 0.9,
         life: 95 + Math.random() * 45
     });
 }
@@ -168,7 +181,6 @@ function createParticle() {
 function animate() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-    // Lower creation rate (slower flow)
     if (particles.length < 38) {
         createParticle();
     }
@@ -182,7 +194,6 @@ function animate() {
 
         const alpha = Math.max(p.life / 110, 0.16);
 
-        // Bright pink particles
         ctx.fillStyle = `rgba(255, 105, 180, ${alpha})`;
         ctx.beginPath();
         ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
