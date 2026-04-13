@@ -43,7 +43,7 @@ body {
     margin: 0;
 }
 
-/* Canvas locked exactly to text */
+/* Canvas for particles */
 #particles {
     position: absolute;
     top: 0;
@@ -52,6 +52,39 @@ body {
     height: 100%;
     pointer-events: none;
     z-index: 1;
+}
+
+/* Bio */
+p {
+    color: #aaa;
+    font-size: 14px;
+    margin: 20px 0 25px;
+}
+
+/* Fixed & Improved Social Links */
+.links {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.links a {
+    display: block;
+    padding: 14px 20px;
+    border-radius: 10px;
+    background: #1a1a1a;
+    text-decoration: none;
+    color: white;
+    font-size: 15px;
+    transition: all 0.25s ease;
+    border: 1px solid rgba(255,255,255,0.06);
+}
+
+.links a:hover {
+    background: #252525;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(255, 40, 40, 0.15);
+    border-color: rgba(255, 60, 60, 0.2);
 }
 </style>
 </head>
@@ -89,23 +122,20 @@ window.addEventListener("resize", resizeCanvas);
 let particles = [];
 
 function createParticle() {
-    // Create particles only within the text bounds (slightly padded)
     const padding = 8;
-    
     particles.push({
         x: Math.random() * (canvas.width - padding * 2) + padding,
         y: Math.random() * (canvas.height - padding * 2) + padding,
-        size: Math.random() * 1.2 + 0.6,   // Much smaller particles
+        size: Math.random() * 1.2 + 0.6,
         speedX: (Math.random() - 0.5) * 1.2,
         speedY: (Math.random() - 0.5) * 1.2,
-        life: 45 + Math.random() * 30      // Slightly shorter life
+        life: 45 + Math.random() * 30
     });
 }
 
 function animate() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-    // Create new particles more frequently but keep total low
     if (particles.length < 25) {
         createParticle();
     }
@@ -117,8 +147,7 @@ function animate() {
         p.y += p.speedY;
         p.life--;
 
-        // Fade out as life decreases
-        const alpha = p.life / 60;
+        const alpha = Math.max(p.life / 60, 0);
 
         ctx.fillStyle = `rgba(255, 40, 40, ${alpha})`;
         ctx.beginPath();
