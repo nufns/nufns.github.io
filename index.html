@@ -39,14 +39,14 @@ body {
     z-index: -1;
 }
 
-/* Card - slightly transparent for sleek glass look */
+/* Card */
 .container {
     text-align: center;
     background: rgba(17, 17, 17, 0.68);
     padding: 60px 40px;
     border-radius: 15px;
     box-shadow: 0 0 40px rgba(255,255,255,0.08);
-    width: 340px; /* slightly wider for 6 links */
+    width: 340px;
     position: relative;
     z-index: 2;
 }
@@ -57,8 +57,8 @@ body {
     display: inline-block;
 }
 
-/* @nuf - now pink to match particles */
-.glow-name {
+/* Pink glowing text style for both @nuf and ALL SOCIALS BELOW */
+.glow-text {
     position: relative;
     z-index: 2;
     font-size: 28px;
@@ -67,7 +67,17 @@ body {
     margin: 0;
 }
 
-/* Particles - confined tightly around @nuf only */
+/* Subtitle - smaller version of the same style */
+.subtitle {
+    font-size: 16px;
+    color: #ff69b4;
+    text-shadow: 0 0 8px #ff69b4, 0 0 18px #ff69b4;
+    margin: 18px 0 25px;
+    letter-spacing: 1px;
+    font-weight: bold;
+}
+
+/* Particles */
 #particles {
     position: absolute;
     top: -55px;
@@ -83,7 +93,6 @@ body {
     display: flex;
     flex-direction: column;
     gap: 10px;
-    margin-top: 10px;
 }
 
 .links a {
@@ -122,20 +131,19 @@ body {
 <div class="container">
     
     <div class="name-wrapper">
-        <h1 class="glow-name">@nuf</h1>
-        <canvas id="particles"></canvas>
+        <h1 class="glow-text">@nuf</h1>
     </div>
 
-    <p>EVERYTHING NUF</p>
+    <!-- Changed text with matching pink glow style -->
+    <p class="subtitle">ALL SOCIALS BELOW</p>
 
-    <!-- Slick Text Boxes (now with Twitch, Kick, and Steam) -->
     <div class="links">
         <a href="https://x.com/nufings" target="_blank">TWITTER</a>
         <a href="https://www.youtube.com/@nufns" target="_blank">YOUTUBE</a>
         <a href="https://www.tiktok.com/@nufns" target="_blank">TIKTOK</a>
-        <a href="https://www.twitch.tv/nufns" target="_blank">TWITCH</a>          <!-- ← change username if needed -->
-        <a href="https://kick.com/nufns" target="_blank">KICK</a>                  <!-- ← change username if needed -->
-        <a href="https://steamcommunity.com/id/nufns" target="_blank">STEAM</a>   <!-- ← replace with your actual Steam link -->
+        <a href="https://www.twitch.tv/nuf" target="_blank">TWITCH</a>
+        <a href="https://kick.com/nuf" target="_blank">KICK</a>
+        <a href="https://steamcommunity.com/id/yoursteamid" target="_blank">STEAM</a>
     </div>
 
 </div>
@@ -177,7 +185,6 @@ function animate() {
 
     for (let i = particles.length - 1; i >= 0; i--) {
         const p = particles[i];
-        
         p.x += p.speedX;
         p.y += p.speedY;
         p.life--;
