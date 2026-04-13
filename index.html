@@ -39,7 +39,7 @@ body {
     z-index: -1;
 }
 
-/* Card with slow fade-in */
+/* Card with fade-in */
 .container {
     text-align: center;
     background: rgba(17, 17, 17, 0.68);
@@ -56,17 +56,11 @@ body {
 }
 
 @keyframes fadeIn {
-    from {
-        opacity: 0;
-        transform: translateY(25px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
+    from { opacity: 0; transform: translateY(25px); }
+    to   { opacity: 1; transform: translateY(0); }
 }
 
-/* Name wrapper */
+/* Name */
 .name-wrapper {
     position: relative;
     display: inline-block;
@@ -91,7 +85,7 @@ body {
     font-weight: bold;
 }
 
-/* Particles */
+/* Particles - delayed start */
 #particles {
     position: absolute;
     top: -55px;
@@ -100,15 +94,42 @@ body {
     height: calc(100% + 110px);
     pointer-events: none;
     z-index: 1;
-    opacity: 0;                    /* Hidden at start */
+    opacity: 0;
     animation: particlesFadeIn 0.8s ease forwards;
-    animation-delay: 1.9s;         /* Starts AFTER card fade-in finishes */
+    animation-delay: 1.9s;
 }
 
 @keyframes particlesFadeIn {
-    to {
-        opacity: 1;
-    }
+    to { opacity: 1; }
+}
+
+/* Slick link boxes - FIXED */
+.links {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.links a {
+    display: block;
+    padding: 14px 20px;
+    border-radius: 10px;
+    background: rgba(26, 26, 26, 0.9);
+    text-decoration: none;
+    color: white;
+    font-size: 15px;
+    transition: all 0.25s ease;
+    border: 1px solid rgba(255,255,255,0.08);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.links a:hover {
+    background: rgba(37, 37, 37, 0.95);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(255, 105, 180, 0.25);
+    border-color: rgba(255, 105, 180, 0.3);
 }
 </style>
 </head>
@@ -155,4 +176,57 @@ resizeCanvas();
 window.addEventListener("resize", resizeCanvas);
 
 let particles = [];
-let animation
+let canSpawnParticles = false;
+
+function createParticle() {
+    const centerX = canvas.width * 0.5;
+    const centerY = canvas.height * 0.5;
+    const spread = 65;
+
+    particles.push({
+        x: centerX + (Math.random() - 0.5) * spread * 2,
+        y: centerY + (Math.random() - 0.5) * spread * 1.6,
+        size: Math.random() * 2.6 + 1.1,
+        speedX: (Math.random() - 0.5) * 0.9,
+        speedY: (Math.random() - 0.5) * 0.9,
+        life: 95 + Math.random() * 45
+    });
+}
+
+function animate() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+    // Only spawn particles after fade-in is complete
+    if (canSpawnParticles && particles.length < 40) {
+        createParticle();
+    }
+
+    for (let i = particles.length - 1; i >= 0; i--) {
+        const p = particles[i];
+        p.x += p.speedX;
+        p.y += p.speedY;
+        p.life--;
+
+        const alpha = Math.max(p.life / 110, 0.16);
+
+        ctx.fillStyle = `rgba(255, 105, 180, ${alpha})`;
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+        ctx.fill();
+
+        if (p.life <= 0) particles.splice(i, 1);
+    }
+
+    requestAnimationFrame(animate);
+}
+
+animate();
+
+// Start spawning particles after the card + particles canvas have faded in
+setTimeout(() => {
+    canSpawnParticles = true;
+}, 2000);   // 2 seconds total delay
+</script>
+
+</body>
+</html>
