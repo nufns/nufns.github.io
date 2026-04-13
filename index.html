@@ -27,7 +27,7 @@ body {
     width: 320px;
 }
 
-/* Name wrapper (IMPORTANT) */
+/* Name wrapper */
 .name-wrapper {
     position: relative;
     display: inline-block;
@@ -40,9 +40,10 @@ body {
     font-size: 28px;
     color: #ff2a2a;
     text-shadow: 0 0 10px #ff0000, 0 0 25px #ff0000;
+    margin: 0;
 }
 
-/* Canvas locked EXACTLY to text */
+/* Canvas locked exactly to text */
 #particles {
     position: absolute;
     top: 0;
@@ -51,30 +52,6 @@ body {
     height: 100%;
     pointer-events: none;
     z-index: 1;
-}
-
-/* Bio */
-p {
-    color: #aaa;
-    font-size: 14px;
-    margin-top: 15px;
-}
-
-/* Links */
-.links a {
-    display: block;
-    margin: 10px 0;
-    padding: 10px;
-    border-radius: 8px;
-    background: #1a1a1a;
-    text-decoration: none;
-    color: white;
-    transition: 0.2s;
-}
-
-.links a:hover {
-    background: #333;
-    transform: scale(1.05);
 }
 </style>
 </head>
@@ -112,33 +89,46 @@ window.addEventListener("resize", resizeCanvas);
 let particles = [];
 
 function createParticle() {
+    // Create particles only within the text bounds (slightly padded)
+    const padding = 8;
+    
     particles.push({
-        x: canvas.width / 2,
-        y: canvas.height / 2,
-        size: Math.random() * 2 + 1,
-        speedX: (Math.random() - 0.5) * 1.5,
-        speedY: (Math.random() - 0.5) * 1.5,
-        life: 60
+        x: Math.random() * (canvas.width - padding * 2) + padding,
+        y: Math.random() * (canvas.height - padding * 2) + padding,
+        size: Math.random() * 1.2 + 0.6,   // Much smaller particles
+        speedX: (Math.random() - 0.5) * 1.2,
+        speedY: (Math.random() - 0.5) * 1.2,
+        life: 45 + Math.random() * 30      // Slightly shorter life
     });
 }
 
 function animate() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-    if (particles.length < 30) createParticle();
+    // Create new particles more frequently but keep total low
+    if (particles.length < 25) {
+        createParticle();
+    }
 
-    particles.forEach((p, i) => {
+    for (let i = particles.length - 1; i >= 0; i--) {
+        const p = particles[i];
+        
         p.x += p.speedX;
         p.y += p.speedY;
         p.life--;
 
-        ctx.fillStyle = "rgba(255, 0, 0, 0.8)";
+        // Fade out as life decreases
+        const alpha = p.life / 60;
+
+        ctx.fillStyle = `rgba(255, 40, 40, ${alpha})`;
         ctx.beginPath();
         ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
         ctx.fill();
 
-        if (p.life <= 0) particles.splice(i, 1);
-    });
+        if (p.life <= 0) {
+            particles.splice(i, 1);
+        }
+    }
 
     requestAnimationFrame(animate);
 }
