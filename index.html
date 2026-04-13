@@ -17,6 +17,7 @@ body {
     overflow: hidden;
 }
 
+/* Video Background */
 #bg-video {
     position: fixed;
     top: 0; left: 0;
@@ -25,6 +26,7 @@ body {
     z-index: -2;
 }
 
+/* Dark Overlay */
 .overlay {
     position: fixed;
     top: 0; left: 0;
@@ -33,6 +35,7 @@ body {
     z-index: -1;
 }
 
+/* Main Card */
 .container {
     text-align: center;
     background: rgba(17, 17, 17, 0.68);
@@ -96,98 +99,36 @@ body {
     border-color: rgba(255, 105, 180, 0.3);
 }
 
-/* View Counter - Eyeball Icon (slightly above middle) */
+/* View Counter - Placed ABOVE the card */
 .view-counter {
     position: fixed;
-    top: 38%;
+    top: 22%;                    /* Adjust this value if you want it higher/lower */
     left: 50%;
-    transform: translate(-50%, -50%);
-    z-index: 10;
+    transform: translateX(-50%);
+    z-index: 20;
     background: rgba(17, 17, 17, 0.75);
-    padding: 10px 18px;
-    border-radius: 30px;
+    padding: 12px 24px;
+    border-radius: 40px;
     display: flex;
     align-items: center;
-    gap: 10px;
-    box-shadow: 0 0 25px rgba(255, 105, 180, 0.4);
-    border: 1px solid rgba(255, 105, 180, 0.25);
-    pointer-events: none; /* so it doesn't block clicks */
+    gap: 12px;
+    box-shadow: 0 0 30px rgba(255, 105, 180, 0.45);
+    border: 1px solid rgba(255, 105, 180, 0.3);
+    pointer-events: none;
 }
 
 .eye-icon {
-    font-size: 26px;
+    font-size: 32px;
     color: #ff69b4;
-    text-shadow: 0 0 12px #ff69b4;
+    text-shadow: 0 0 15px #ff69b4, 0 0 25px #ff69b4;
 }
 
 .view-count {
-    font-size: 18px;
+    font-size: 22px;
     font-weight: bold;
     color: #ff69b4;
-    min-width: 30px;
+    min-width: 40px;
     text-align: center;
-}
-
-/* Music Controls (kept from before) */
-.music-controls {
-    position: fixed;
-    bottom: 25px;
-    right: 25px;
-    z-index: 100;
-    background: rgba(17, 17, 17, 0.92);
-    padding: 18px 16px;
-    border-radius: 22px;
-    box-shadow: 0 0 40px rgba(255, 105, 180, 0.45);
-    border: 1px solid rgba(255,255,255,0.15);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 10px;
-}
-
-#play-btn {
-    background: #ff69b4;
-    color: white;
-    border: none;
-    padding: 12px 24px;
-    border-radius: 30px;
-    font-size: 15px;
-    font-weight: bold;
-    cursor: pointer;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    transition: all 0.3s;
-}
-
-#play-btn:hover {
-    background: #ff8ac4;
-    transform: scale(1.08);
-}
-
-#volume-icon {
-    font-size: 30px;
-    color: #ff69b4;
-    cursor: pointer;
-    transition: transform 0.25s;
-}
-
-#volume-icon:hover { transform: scale(1.25); }
-
-#volume-slider {
-    -webkit-appearance: slider-vertical;
-    appearance: slider-vertical;
-    height: 120px;
-    width: 8px;
-    accent-color: #ff69b4;
-    background: rgba(255,255,255,0.25);
-    border-radius: 10px;
-    cursor: pointer;
-}
-
-#music-status {
-    font-size: 13px;
-    color: #ff69b4;
-    margin-top: 6px;
 }
 </style>
 </head>
@@ -198,11 +139,13 @@ body {
     <source src="Replay 2026-04-13 03-39-55 - Trim.mp4" type="video/mp4">
 </video>
 
-<audio id="bg-music" loop>
-    <source src="Leray - Trippie Redd INSTRUMENTAL (A Love Letter To You 4).mp3" type="audio/mpeg">
-</audio>
-
 <div class="overlay"></div>
+
+<!-- View Counter (above the box) -->
+<div class="view-counter">
+    <span class="eye-icon">👁</span>
+    <span class="view-count" id="view-count">0</span>
+</div>
 
 <div class="container">
     <div class="name-wrapper">
@@ -222,22 +165,8 @@ body {
     </div>
 </div>
 
-<!-- Eyeball View Counter -->
-<div class="view-counter">
-    <span class="eye-icon">👁</span>
-    <span class="view-count" id="view-count">0</span>
-</div>
-
-<!-- Music Controls -->
-<div class="music-controls">
-    <button id="play-btn">▶ PLAY MUSIC</button>
-    <div id="volume-icon">🔊</div>
-    <input type="range" id="volume-slider" min="0" max="1" step="0.01" value="0.75">
-    <div id="music-status">Click PLAY to start</div>
-</div>
-
 <script>
-// Particles code (same as before)
+// Particles
 const canvas = document.getElementById("particles");
 const ctx = canvas.getContext("2d");
 
@@ -284,6 +213,7 @@ function animate() {
     requestAnimationFrame(animate);
 }
 animate();
+
 setTimeout(() => { canSpawnParticles = true; }, 2000);
 
 // ==================== VIEW COUNTER ====================
@@ -291,51 +221,13 @@ const viewCountEl = document.getElementById('view-count');
 let viewCount = parseInt(localStorage.getItem('nufViewCount')) || 0;
 viewCountEl.textContent = viewCount;
 
-// Add click listener to all social links
-const links = document.querySelectorAll('#social-links a');
-links.forEach(link => {
+// Count a view when any link is clicked
+document.querySelectorAll('#social-links a').forEach(link => {
     link.addEventListener('click', () => {
         viewCount++;
         viewCountEl.textContent = viewCount;
         localStorage.setItem('nufViewCount', viewCount);
     });
-});
-
-// ==================== MUSIC CONTROLS (unchanged) ====================
-const audio = document.getElementById('bg-music');
-const playBtn = document.getElementById('play-btn');
-const slider = document.getElementById('volume-slider');
-const volumeIcon = document.getElementById('volume-icon');
-const statusText = document.getElementById('music-status');
-
-let isPlaying = false;
-audio.volume = 0.75;
-slider.value = 0.75;
-
-playBtn.addEventListener('click', () => {
-    if (!isPlaying) {
-        audio.play().then(() => {
-            isPlaying = true;
-            playBtn.textContent = '❚❚ PAUSE MUSIC';
-            statusText.textContent = '♪ Now Playing';
-        }).catch(() => {
-            statusText.textContent = 'Error - Try again';
-        });
-    } else {
-        audio.pause();
-        isPlaying = false;
-        playBtn.textContent = '▶ PLAY MUSIC';
-        statusText.textContent = 'Music Paused';
-    }
-});
-
-slider.addEventListener('input', () => {
-    audio.volume = parseFloat(slider.value);
-});
-
-volumeIcon.addEventListener('click', () => {
-    audio.muted = !audio.muted;
-    volumeIcon.textContent = audio.muted ? '🔇' : '🔊';
 });
 </script>
 
