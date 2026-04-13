@@ -14,37 +14,35 @@ body {
     justify-content: center;
     align-items: center;
     height: 100vh;
-    overflow: hidden; /* Prevents scrollbars */
+    overflow: hidden;
 }
 
-/* Video Background */
-#bg-video {
+/* GIF Background */
+#bg-gif {
     position: fixed;
-    right: 0;
-    bottom: 0;
-    min-width: 100%;
-    min-height: 100%;
-    width: auto;
-    height: auto;
-    z-index: -1;           /* Behind everything */
-    object-fit: cover;     /* Keeps aspect ratio and covers screen */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;        /* Covers the whole screen nicely */
+    z-index: -2;
 }
 
-/* Dark overlay so text remains readable */
+/* Dark overlay for readability */
 .overlay {
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(0, 0, 0, 0.65); /* Adjust darkness here */
+    background: rgba(0, 0, 0, 0.65);   /* Increase to 0.75–0.8 if too bright */
     z-index: -1;
 }
 
 /* Card */
 .container {
     text-align: center;
-    background: rgba(17, 17, 17, 0.85); /* Semi-transparent dark card */
+    background: rgba(17, 17, 17, 0.85);
     padding: 60px 40px;
     border-radius: 15px;
     box-shadow: 0 0 40px rgba(255,255,255,0.08);
@@ -53,13 +51,11 @@ body {
     z-index: 2;
 }
 
-/* Name wrapper */
 .name-wrapper {
     position: relative;
     display: inline-block;
 }
 
-/* Name */
 .glow-name {
     position: relative;
     z-index: 2;
@@ -69,7 +65,6 @@ body {
     margin: 0;
 }
 
-/* Canvas for particles */
 #particles {
     position: absolute;
     top: 0;
@@ -80,14 +75,12 @@ body {
     z-index: 1;
 }
 
-/* Bio */
 p {
     color: #ddd;
     font-size: 14px;
     margin: 20px 0 25px;
 }
 
-/* Social Links */
 .links {
     display: flex;
     flex-direction: column;
@@ -116,17 +109,12 @@ p {
 
 <body>
 
-<!-- Video Background -->
-<video id="bg-video" autoplay muted loop playsinline>
-    <source src="https://youtu.be/spJqqu2H8n4" type="video/mp4">
-    Your browser does not support the video tag.
-</video>
+<!-- GIF Background - CHANGE THIS URL -->
+<img id="bg-gif" src="https://cdn.akamai.steamstatic.com/steamcommunity/public/images/items/1263950/b31c14955cd9e39d704f7dfd36cb9cc2129d6fbc.mp4" alt="background">
 
-<!-- Dark overlay for readability -->
 <div class="overlay"></div>
 
 <div class="container">
-    
     <div class="name-wrapper">
         <h1 class="glow-name">@nuf</h1>
         <canvas id="particles"></canvas>
@@ -139,10 +127,10 @@ p {
         <a href="https://www.youtube.com/@nufns">YouTube</a>
         <a href="#">GitHub</a>
     </div>
-
 </div>
 
 <script>
+/* Particle script remains the same */
 const canvas = document.getElementById("particles");
 const ctx = canvas.getContext("2d");
 
@@ -170,13 +158,10 @@ function createParticle() {
 function animate() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-    if (particles.length < 45) {
-        createParticle();
-    }
+    if (particles.length < 45) createParticle();
 
     for (let i = particles.length - 1; i >= 0; i--) {
         const p = particles[i];
-        
         p.x += p.speedX;
         p.y += p.speedY;
         p.life--;
@@ -188,9 +173,7 @@ function animate() {
         ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
         ctx.fill();
 
-        if (p.life <= 0) {
-            particles.splice(i, 1);
-        }
+        if (p.life <= 0) particles.splice(i, 1);
     }
 
     requestAnimationFrame(animate);
