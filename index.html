@@ -22,27 +22,35 @@ body {
     position: relative;
     text-align: center;
     background: #111;
-    padding: 40px;
+    padding: 60px 40px;
     border-radius: 15px;
-    box-shadow: 0 0 30px rgba(255,255,255,0.05);
-    width: 300px;
+    box-shadow: 0 0 40px rgba(255,255,255,0.05);
+    width: 320px;
+}
+
+/* Name wrapper */
+.name-wrapper {
+    position: relative;
+    display: inline-block;
 }
 
 /* Name */
 .glow-name {
     position: relative;
     z-index: 2;
+    font-size: 28px;
     color: #ff2a2a;
-    text-shadow: 0 0 10px #ff0000, 0 0 20px #ff0000;
-    margin-bottom: 10px;
+    text-shadow: 0 0 10px #ff0000, 0 0 25px #ff0000;
 }
 
-/* Particle canvas */
+/* Full-size particle canvas */
 #particles {
     position: absolute;
-    top: 60px;
+    top: 0;
     left: 50%;
     transform: translateX(-50%);
+    width: 200px;
+    height: 120px;
     pointer-events: none;
     z-index: 1;
 }
@@ -51,6 +59,7 @@ body {
 p {
     color: #aaa;
     font-size: 14px;
+    margin-top: 15px;
 }
 
 /* Links */
@@ -75,8 +84,11 @@ p {
 <body>
 
 <div class="container">
-    <h1 class="glow-name">@nuf</h1>
-    <canvas id="particles"></canvas>
+    
+    <div class="name-wrapper">
+        <h1 class="glow-name">@nuf</h1>
+        <canvas id="particles"></canvas>
+    </div>
 
     <p>EVERYTHING NUF</p>
 
@@ -85,14 +97,15 @@ p {
         <a href="https://www.youtube.com/@nufns">YouTube</a>
         <a href="#">GitHub</a>
     </div>
+
 </div>
 
-<!-- ✅ JS goes OUTSIDE style -->
 <script>
 const canvas = document.getElementById("particles");
 const ctx = canvas.getContext("2d");
 
-canvas.width = 300;
+// match canvas size to CSS
+canvas.width = 200;
 canvas.height = 120;
 
 let particles = [];
@@ -101,24 +114,24 @@ function createParticle() {
     particles.push({
         x: canvas.width / 2,
         y: canvas.height / 2,
-        size: Math.random() * 3 + 1,
-        speedX: (Math.random() - 0.5) * 1.5,
-        speedY: (Math.random() - 0.5) * 1.5,
-        life: 100
+        size: Math.random() * 2 + 1,
+        speedX: (Math.random() - 0.5) * 2,
+        speedY: (Math.random() - 0.5) * 2,
+        life: 80
     });
 }
 
 function animate() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-    if (particles.length < 40) createParticle();
+    if (particles.length < 60) createParticle();
 
     particles.forEach((p, i) => {
         p.x += p.speedX;
         p.y += p.speedY;
         p.life--;
 
-        ctx.fillStyle = "rgba(255, 0, 0, 0.7)";
+        ctx.fillStyle = "rgba(255, 0, 0, 0.8)";
         ctx.beginPath();
         ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
         ctx.fill();
